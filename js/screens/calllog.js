@@ -872,6 +872,43 @@
     }
   }
 
+  var CallLogGestureDector = {
+    init: function(container) {
+      this.width = window.innerWidth;
+      this.gestureDetector = new GestureDetector(container);
+
+      ['pan', 'swipe'].forEach(function(type) {
+        container.addEventListener(type, this[type].bind(this));
+      }, this);
+
+      this.start();
+    },
+
+    pan: function(e) {
+      // TODO
+    },
+
+    swipe: function(e) {
+      var detail = e.detail;
+      var distance = detail.start.screenX - detail.end.screenX;
+      var farenough = Math.abs(distance) > this.width *
+                                           this.TRANSITION_FRACTION;
+      if (farenough) {
+        _changeSection(detail.direction === 'right' ? 'calls' : 'urls');
+      }
+    },
+
+    start: function() {
+      this.gestureDetector.startDetecting();
+    },
+
+    stop: function() {
+      this.gestureDetector.startDetecting();
+    },
+
+    TRANSITION_FRACTION: 0.50
+  };
+
   var CallLog = {
     init: function w_init(identity) {
       // Show the section
@@ -892,6 +929,8 @@
         document.querySelector('.calllog-sections-container');
       callsTabSelector = document.getElementById('calls-section-filter');
       urlsTabSelector = document.getElementById('urls-section-filter');
+
+      CallLogGestureDector.init(calllogSectionsContainer);
 
       // Add a listener to the right button
       document.getElementById('open-settings-button').addEventListener(
