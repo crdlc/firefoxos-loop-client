@@ -47,16 +47,12 @@
         var title = links[i].dataset.title;
         var url = links[i].dataset.url;
 
-        if (!url || !title) {
-          return;
-        }
-
         links[i].addEventListener(
           'click',
           function launchWebview(e) {
             e.preventDefault();
             e.stopPropagation();
-            WebviewOverlay.show(title, url);
+            window.open(url || Config.TOS);
           }
         );
       }
