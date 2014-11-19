@@ -32,7 +32,11 @@ Config = {
     maxSignInAttempts: 3 // Max number of sign in attempts before logging out.
   },
   maxVersionCheckAttempts: 3, // Max number of retries checking version.
-  tos_url: 'http://www.mozilla.com'
+  tos_url: 'http://www.mozilla.com',
+  rooms: {
+    expiresIn: 24,
+    maxSize: 2
+  }
 };
 
 window.OTProperties = {
